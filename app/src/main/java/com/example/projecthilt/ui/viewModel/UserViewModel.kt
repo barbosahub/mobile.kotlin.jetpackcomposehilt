@@ -23,14 +23,15 @@ class UserViewModel
     init {
         getPhotos()
     }
+
     fun getPhotos() =
         viewModelScope.launch {
             userRepository.getPhotos().onStart {
-                response.value= StateFlow.Loading
+                response.value = StateFlow.Loading
             }.catch {
-                response.value= StateFlow.Error(it)
+                response.value = StateFlow.Error(it)
             }.collect {
-                response.value=StateFlow.Success<Any>(it)
+                response.value = StateFlow.Success<Any>(it)
             }
         }
 }

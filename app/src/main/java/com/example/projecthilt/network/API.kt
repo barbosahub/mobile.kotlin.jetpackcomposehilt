@@ -9,11 +9,6 @@ interface API {
     suspend fun getPhotos(
     ): List<Photo>
 
-    @GET("albums?")
-    suspend fun getAlbumsById(
-        @Query("id") id : Int
-    ): retrofit2.Response<Map<String,Any>>
-
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com/"
     }

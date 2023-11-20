@@ -16,10 +16,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideMoshi(): Moshi =
         Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    @Provides @Singleton fun providesApiService(moshi: Moshi): API =
+
+    @Provides
+    @Singleton
+    fun providesApiService(moshi: Moshi): API =
         Retrofit.Builder()
             .run {
                 baseUrl(API.BASE_URL)

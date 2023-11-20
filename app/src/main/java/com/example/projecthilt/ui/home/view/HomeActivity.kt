@@ -56,9 +56,10 @@ class HomeActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Body(){
+    fun Body() {
         ConstraintLayout(
-            modifier = Modifier.fillMaxSize()) {
+            modifier = Modifier.fillMaxSize()
+        ) {
             val (appBar, body) = createRefs()
 
             ProjectHiltTopBar(Modifier
@@ -88,19 +89,16 @@ class HomeActivity : ComponentActivity() {
         Body()
     }
 
-
     @Composable
-    fun InitRecyclerView(modifier: Modifier,
-                         photoList: List<Photo?>) {
+    fun InitRecyclerView(
+        modifier: Modifier,
+        photoList: List<Photo?>
+    ) {
         PhotoRecycler(
             modifier = modifier,
             photoList = photoList
-        ) {photoJson ->
-//            Intent(this, DetailsActivity::class.java).apply {
-//                putExtra("id", photoJson.id)
-//                putExtra("url", photoJson.url)
-//                startActivity(this)
-//            }
+        ) { photo ->
+            TODO()
         }
     }
 }
