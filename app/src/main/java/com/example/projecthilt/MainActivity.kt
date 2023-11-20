@@ -10,18 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.projecthilt.stateFlow.StateFlow
 import com.example.projecthilt.ui.theme.ProjectHiltTheme
 import com.example.projecthilt.ui.viewModel.UserViewModel
-import com.example.projecthilt.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,24 +30,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-
-                    LaunchedEffect(Unit) {
-                        viewModel.getPhotos()
-                    }
-
-
+//  val viewModel = hiltViewModel<UserViewModel>()
 
                     GetPhotos(viewModel = viewModel)
-                    
-//                    val navController = rememberNavController()
-//                    NavHost(navController, startDestination = Routes.MainActivity.id) {
-//                        composable(Routes.MainActivity.id) { backStackEntry ->
-//                            // Creates a ViewModel from the current BackStackEntry
-//                            // Available in the androidx.hilt:hilt-navigation-compose artifact
-//                            val viewModel = hiltViewModel<UserViewModel>()
-//                            GetPhotos(viewModel)
-//                        }
-//                    }
+
                 }
             }
         }
@@ -64,13 +43,13 @@ class MainActivity : ComponentActivity() {
 @Composable fun GetPhotos(viewModel: UserViewModel) {
     when (val result = viewModel.response.value) {
         is StateFlow.Loading -> CircularProgressIndicator()
-        is StateFlow.Success<*> -> InitPhotos(result.data as JSONObject)
+        is StateFlow.Success<*> -> InitPhotos(result.data)
         is StateFlow.Error -> Text(text = "${result.errorMessage}")
         StateFlow.Empty -> {}
     }
 }
 
-@Composable fun InitPhotos(photo: JSONObject) {
+@Composable fun InitPhotos(photo: Any?) {
     val teste = photo
 
 }

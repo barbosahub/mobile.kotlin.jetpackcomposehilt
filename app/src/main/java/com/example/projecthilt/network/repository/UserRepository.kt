@@ -14,5 +14,4 @@ constructor(private val api: API){
         emit(api.getPhotos())
     }.flowOn(Dispatchers.IO)
 
-
 }
