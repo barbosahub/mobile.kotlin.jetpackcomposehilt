@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projecthilt.network.repository.UserRepository
 import com.example.projecthilt.stateFlow.StateFlow
+import com.example.projecthilt.ui.home.model.Photo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
@@ -16,6 +17,9 @@ import javax.inject.Inject
 class UserViewModel
 @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
     val response: MutableState<StateFlow> = mutableStateOf(StateFlow.Empty)
+
+    lateinit var listPhoto: List<Photo?>
+
     init {
         getPhotos()
     }

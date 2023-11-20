@@ -39,23 +39,27 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-@Suppress("UNCHECKED_CAST")
-fun GetPhotos(viewModel: UserViewModel) {
-    when (val result = viewModel.response.value) {
-        is StateFlow.Loading -> CircularProgressIndicator()
-        is StateFlow.Success<*> -> InitPhotos(result.data as List<Photo?>)
-        is StateFlow.Error -> Text(text = "${result.errorMessage}")
-        StateFlow.Empty -> {}
+    @Composable
+    @Suppress("UNCHECKED_CAST")
+    fun GetPhotos(viewModel: UserViewModel) {
+        when (val result = viewModel.response.value) {
+            is StateFlow.Loading -> CircularProgressIndicator()
+            is StateFlow.Success<*> -> InitPhotos(result.data as List<Photo?>)
+            is StateFlow.Error -> Text(text = "${result.errorMessage}")
+            StateFlow.Empty -> {}
+        }
     }
-}
 
-@Composable
-fun InitPhotos(photo: List<Photo?>) {
+    @Composable
+    fun InitPhotos(photo: List<Photo?>) {
+        val teste = photo
+        val teste2 = teste[0]?.title
+        viewModel.listPhoto = photo
 
-    val teste = photo
-    val teste2 = teste[0]?.title
 
+        val teste3 = viewModel.listPhoto
+
+
+    }
 }
