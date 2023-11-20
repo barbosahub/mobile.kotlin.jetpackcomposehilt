@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.projecthilt.stateFlow.StateFlow
+import com.example.projecthilt.ui.home.model.Photo
 import com.example.projecthilt.ui.theme.ProjectHiltTheme
 import com.example.projecthilt.ui.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,16 +41,21 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable fun GetPhotos(viewModel: UserViewModel) {
+@Composable
+@Suppress("UNCHECKED_CAST")
+fun GetPhotos(viewModel: UserViewModel) {
     when (val result = viewModel.response.value) {
         is StateFlow.Loading -> CircularProgressIndicator()
-        is StateFlow.Success<*> -> InitPhotos(result.data)
+        is StateFlow.Success<*> -> InitPhotos(result.data as List<Photo?>)
         is StateFlow.Error -> Text(text = "${result.errorMessage}")
         StateFlow.Empty -> {}
     }
 }
 
-@Composable fun InitPhotos(photo: Any?) {
+@Composable
+fun InitPhotos(photo: List<Photo?>) {
+
     val teste = photo
+    val teste2 = teste[0]?.title
 
 }
