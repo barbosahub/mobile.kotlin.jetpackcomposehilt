@@ -55,7 +55,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.1")
@@ -64,10 +63,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-
-    // Retrofit
+    //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    //moshi
+    //Moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     // Dependency Injection
@@ -76,14 +74,17 @@ dependencies {
     kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
     //Navigation
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-
     //Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    // android ktx
+    //Android ktx
     implementation ("androidx.activity:activity-ktx:1.8.1")
+    //ConstraintLayout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    //coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
-
+    
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

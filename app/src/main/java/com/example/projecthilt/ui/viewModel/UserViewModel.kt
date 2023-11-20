@@ -18,7 +18,7 @@ class UserViewModel
 @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
     val response: MutableState<StateFlow> = mutableStateOf(StateFlow.Empty)
 
-    lateinit var listPhoto: List<Photo?>
+    var listPhoto: List<Photo?> = listOf()
 
     init {
         getPhotos()
