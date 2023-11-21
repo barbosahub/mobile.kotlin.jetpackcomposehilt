@@ -1,6 +1,7 @@
 package com.example.projecthilt.ui.home.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,25 +14,18 @@ import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProjectHiltTopBar(modifier: Modifier) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text("TopAppBar")
-                },
-                colors =
-                TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = Color.LightGray
-                ),
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
-        ) {
-        }
-    }
+fun ProjectHiltTopBar() {
+
+    CenterAlignedTopAppBar(
+        title = {
+            Text("TopAppBar")
+        },
+        colors =
+        TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = Color.LightGray
+        ),
+    )
+
+
 }
 

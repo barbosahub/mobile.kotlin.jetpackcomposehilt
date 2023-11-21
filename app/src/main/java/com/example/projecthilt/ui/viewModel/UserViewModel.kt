@@ -16,9 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel
 @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
-    val response: MutableState<StateFlow> = mutableStateOf(StateFlow.Empty)
+    val photos: MutableState<StateFlow> = mutableStateOf(StateFlow.Empty)
+    val albums: MutableState<StateFlow> = mutableStateOf(StateFlow.Empty)
 
-    var listPhoto: List<Photo?> = listOf()
+    var listPhoto = mutableStateOf<List<Photo>>(listOf())
 
     init {
         getPhotos()
@@ -27,11 +28,11 @@ class UserViewModel
     fun getPhotos() =
         viewModelScope.launch {
             userRepository.getPhotos().onStart {
-                response.value = StateFlow.Loading
+                photos.value = StateFlow.Loading
             }.catch {
-                response.value = StateFlow.Error(it)
+                photos.value = StateFlow.Error(it)
             }.collect {
-                response.value = StateFlow.Success<Any>(it)
+                photos.value = StateFlow.Success<Any>(it)
             }
         }
 }

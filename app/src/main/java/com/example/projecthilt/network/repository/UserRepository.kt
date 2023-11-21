@@ -14,5 +14,4 @@ constructor(private val api: API) {
     fun getPhotos(): Flow<List<Photo>> = flow {
         emit(api.getPhotos())
     }.flowOn(Dispatchers.IO)
-
 }

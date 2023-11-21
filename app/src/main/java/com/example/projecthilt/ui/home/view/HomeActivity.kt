@@ -1,21 +1,21 @@
 package com.example.projecthilt.ui.home.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.magnifier
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.projecthilt.stateFlow.StateFlow
 import com.example.projecthilt.ui.home.component.PhotoRecycler
 import com.example.projecthilt.ui.home.component.ProjectHiltTopBar
@@ -23,11 +23,11 @@ import com.example.projecthilt.ui.home.model.Photo
 import com.example.projecthilt.ui.theme.ProjectHiltTheme
 import com.example.projecthilt.ui.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.Serializable
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
     private val viewModel: UserViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -47,58 +47,42 @@ class HomeActivity : ComponentActivity() {
     @Composable
     @Suppress("UNCHECKED_CAST")
     fun GetPhotos(viewModel: UserViewModel) {
-        when (val result = viewModel.response.value) {
+        when (val result = viewModel.photos.value) {
             is StateFlow.Loading -> CircularProgressIndicator()
-            is StateFlow.Success<*> -> InitPhotos(result.data as List<Photo?>)
+            is StateFlow.Success<*> -> InitPhotos(result.data as List<Photo>)
             is StateFlow.Error -> Text(text = "${result.errorMessage}")
             StateFlow.Empty -> {}
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Body() {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxSize()
+        Scaffold(
+            topBar = { ProjectHiltTopBar() }
         ) {
-            val (appBar, body) = createRefs()
-
-            ProjectHiltTopBar(Modifier
-                .constrainAs(appBar) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                }
-                .fillMaxWidth()
-                .height(56.dp))
-
-            InitRecyclerView(
-                Modifier
-                    .constrainAs(body) {
-                        top.linkTo(appBar.bottom)
-                        start.linkTo(parent.start)
-                    }
-                    .fillMaxSize(),
-                viewModel.listPhoto
-            )
+            Column(modifier = Modifier.padding(it)) {
+                InitRecyclerView(photoList = viewModel.listPhoto.value)
+            }
         }
     }
 
     @Composable
-    fun InitPhotos(photo: List<Photo?>) {
-        viewModel.listPhoto = photo
+    fun InitPhotos(photo: List<Photo>) {
+        viewModel.listPhoto.value = photo
 
         Body()
     }
 
     @Composable
-    fun InitRecyclerView(
-        modifier: Modifier,
-        photoList: List<Photo?>
-    ) {
+    fun InitRecyclerView(photoList: List<Photo>) {
         PhotoRecycler(
-            modifier = modifier,
             photoList = photoList
-        ) { photo ->
-            TODO()
+        ) {
+            Intent(this, PhotoActivity::class.java).apply {
+                putExtra("photo",it)
+                startActivity(this)
+            }
         }
     }
 }
