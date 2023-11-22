@@ -21,7 +21,7 @@ import com.example.projecthilt.ui.home.component.PhotoRecycler
 import com.example.projecthilt.ui.home.component.ProjectHiltTopBar
 import com.example.projecthilt.ui.home.model.Photo
 import com.example.projecthilt.ui.theme.ProjectHiltTheme
-import com.example.projecthilt.ui.viewModel.UserViewModel
+import com.example.projecthilt.ui.home.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
 

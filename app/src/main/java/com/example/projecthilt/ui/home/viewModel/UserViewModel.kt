@@ -1,4 +1,4 @@
-package com.example.projecthilt.ui.viewModel
+package com.example.projecthilt.ui.home.viewModel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
